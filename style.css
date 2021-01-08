@@ -1,0 +1,14 @@
+body{
+    background: rgb(0, 0, 22);
+    color: white;
+    margin: 0px;
+    margin-top: 10px;
+}
+
+div{
+    -border: 1px gray dashed;
+    -padding: 1px;
+}
+.row{
+    margin: 0px;
+}
