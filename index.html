@@ -12,64 +12,65 @@
     <title>Nasa mars rover photos</title>
 </head>
 <body onload="draw_init()">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2"><img src="https://www.nasa.gov/sites/all/themes/custom/nasatwo/images/nasa-logo.svg" alt="nasa logo"></div>
-            <div class="col-md-5"><h1 style="line-height: 90px;">Nasa Mars Rover Photos</h1></div>
-            <div class="col-md-4"></div>
-            <div class="col-md-1"><h2 style="line-height: 90px; text-align: center;">Menu</h2></div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-7" style="text-align:justify;">Mars Rover Photos
-                This API is designed to collect image data gathered by NASA's Curiosity, Opportunity, and Spirit rovers on Mars and make it more easily available to other developers, educators, and citizen scientists. 
-                This API is maintained by Chris Cerami.
-                Each rover has its own set of photos stored in the database, which can be queried separately. There are several possible queries that can be made against the API. 
-                Photos are organized by the sol (Martian rotation or day) on which they were taken, counting up from the rover's landing date. 
-                A photo taken on Curiosity's 1000th Martian sol exploring Mars, for example, will have a sol attribute of 1000. 
-                If instead you prefer to search by the Earth date on which a photo was taken, you can do that too.
-                Along with querying by date, results can also be filtered by the camera with which it was taken and responses will be limited to 25 photos per call. 
-                Queries that should return more than 25 photos will be split onto several pages, which can be accessed by adding a 'page' param to the query.
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"><img src="https://www.nasa.gov/sites/all/themes/custom/nasatwo/images/nasa-logo.svg" alt="nasa logo"></div>
+                <div class="col-md-5"><h1 style="line-height: 90px;">Nasa Mars Rover Photos</h1></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-1"><h2 style="line-height: 90px; text-align: center;">Menu</h2></div>
             </div>
-            <div class="col-md-3"><img width="100%" src="https://mars.nasa.gov/msl-raw-images/msss/01000/mcam/1000MR0044631300503690E01_DXXX.jpg" alt="" srcset=""></div>
-            </div>
-            <div class="col-md-1"></div>
-        
-    </div>
-    <br>
-    <div class="conteiner-fluid">
-        <div class="row">
-            <div class="col-md-4 text-center"><h1>2020-01-06</h1></div>
-            <div class="col-md-4 text-center"><h1>2020-01-07</h1></div>
-            <div class="col-md-4 text-center"><h1>FUTURE</h1></div>
+            <hr>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-7" style="text-align:justify;">Mars Rover Photos
+                    This API is designed to collect image data gathered by NASA's Curiosity, Opportunity, and Spirit rovers on Mars and make it more easily available to other developers, educators, and citizen scientists. 
+                    This API is maintained by Chris Cerami.
+                    Each rover has its own set of photos stored in the database, which can be queried separately. There are several possible queries that can be made against the API. 
+                    Photos are organized by the sol (Martian rotation or day) on which they were taken, counting up from the rover's landing date. 
+                    A photo taken on Curiosity's 1000th Martian sol exploring Mars, for example, will have a sol attribute of 1000. 
+                    If instead you prefer to search by the Earth date on which a photo was taken, you can do that too.
+                    Along with querying by date, results can also be filtered by the camera with which it was taken and responses will be limited to 25 photos per call. 
+                    Queries that should return more than 25 photos will be split onto several pages, which can be accessed by adding a 'page' param to the query.
+                </div>
+                <div class="col-md-3"><img width="100%" src="https://mars.nasa.gov/msl-raw-images/msss/01000/mcam/1000MR0044631300503690E01_DXXX.jpg" alt="" srcset=""></div>
+                </div>
+                <div class="col-md-1"></div>
+            
         </div>
-        <!-- <img src="source/line.svg" alt="" srcset=""> -->
-        <canvas id="lineDate" width="0px" height="100px">
-            line
-        </canvas>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <h1 class="text-center">20200107</h1>
-            <div class="col-md-5"><img width="100%" src="https://mars.nasa.gov/system/feature_items/images/6279_PIA24173-320.jpg" alt="" srcset=""></div>
-        </div>
-    </div>
-    
-    <div class="container">
         <br>
-        <hr>
-        <h2 class="text-center">Debug</h2>
-        <div class="row">
-            <div class="col-md-4" id="clicked1">anim[0] = false</div>
-            <div class="col-md-4" id="clicked2">anim[1] = false</div>
-            <div class="col-md-4" id="clicked3">anim[2] = false</div>
+        <div class="conteiner-fluid">
+            <div class="row">
+                <div class="col-md-4  text-center" v-for="(item, index) in dateDivs.collection" :style="item.style" v-on:click="nextDate(index)" v-on:mousemove="animCanvas(index)" v-on:mouseleave="animCanvasOff(index)">
+                    <h1>{{item.text}}</h1>
+                </div>
+            </div>
+            <!-- <img src="source/line.svg" alt="" srcset=""> -->
+            <canvas id="lineDate" width="0px" height="80px">
+                line
+            </canvas>
+        </div>
+    
+        <div class="container">
+            <div class="row">
+                <h1 class="text-center">Rover: {{roverName}}</h1>
+                <div class="col-md-5"><img width="100%" src="https://mars.nasa.gov/system/feature_items/images/6279_PIA24173-320.jpg" alt="" srcset=""></div>
+            </div>
         </div>
         
+        <div class="container">
+            <br>
+            <hr>
+            <h2 class="text-center">Debug</h2>
+            <div class="row">
+                <div class="col-md-4" id="clicked1">anim[0] = false</div>
+                <div class="col-md-4" id="clicked2">anim[1] = false</div>
+                <div class="col-md-4" id="clicked3">anim[2] = false</div>
+            </div>
+            
+        </div>
     </div>
-    
-    <script src="canvas.js"></script>
+    <script src="canvas.js" async></script>
     <script src="app.js"></script>
 </body>
 </html>

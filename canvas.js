@@ -27,9 +27,8 @@ function draw_init(){
         circle.x = clientWidth/6 * (i*2+1);
         circle.anim = false;
         circle.setTransform(clientWidth/6 * (i*2+1), shift_top, 1, 1, 0, 0, 0, clientWidth/6 * (i*2+1), shift_top);
-        circle.addEventListener("mouseover", activeAnim);
-        circle.addEventListener("mouseout", function(e){e.target.anim = false;});
-        //circle.addEventListener("mouseover", function(e){console.log("Biba")});
+        //circle.addEventListener("mouseover", activeAnim);
+        //circle.addEventListener("mouseout", function(e){e.target.anim = false;});
         stage.addChild(circle);
         cir_shape.push(circle);
     }
