@@ -3,7 +3,7 @@ new Vue({
     data(){
         return{
             dateStep: 0,
-            curentDate: new Date(Date.now()).toISOString().substring(0,10), //+ "." + new Date().now().getMonth()+1 + "." + new Date().now().getFullYear(),
+            curentDate: Date.now(),
             dateDivs:{
                 collection: [
                     { 

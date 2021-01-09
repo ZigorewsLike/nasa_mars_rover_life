@@ -31,6 +31,7 @@ div{
 .roverImg{ 
     background-size: contain;
     background-repeat: no-repeat;
+    transition: 0.15s ease-in;
 }
 .roverChLabel{
     padding-top: 125px;
@@ -40,7 +41,6 @@ div{
     -width: 200px;
     margin-bottom: 10px;
     cursor: pointer;
-    -border-top: 1px gray solid;
     transition: 0.1s ease-in;
 }
 .roverChLabel > div:hover{
