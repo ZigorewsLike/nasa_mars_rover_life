@@ -33,6 +33,9 @@ new Vue({
             },
             roverName: 'curiosity',
             posX: 0,
+            roverImage: {
+                backgroundImage: "url(source/rovers/curiosity.jpg)",
+            },
         }
     },
     updated: function () {
@@ -41,7 +44,7 @@ new Vue({
     watch: {
         posX: function(newValue) {
             for(let i=0; i<3; i++){
-                TweenLite.to(cir_shape[i].graphics.command, 0.8, { x: newValue+(clientWidth/6* (i*2+1)), onComplete: function() { 
+                TweenLite.to(cir_shape[i].graphics.command, 0.6, { x: newValue+(clientWidth/6* (i*2+1)), onComplete: function() { 
                     cir_shape[i].graphics.command.x = (clientWidth/6* (i*2+1)); 
                     cir_shape[0].lock = false; 
                 } ,onUpdate : function () {
@@ -109,10 +112,11 @@ new Vue({
                 
             } 
         },
-        updateDate(){
-            for(let i=0;i<3;i++){
-                this.dateDivs.collection[i].text = new Date(Date.now() - 86400000 * (this.dateStep+(2-i-1))).toISOString().substring(0,10);
-            }
+        chooseRover(name){
+            this.roverName = name;
+        },
+        viewRover(name){
+            this.roverImage.backgroundImage = 'url(source/rovers/' + name + '.jpg)'
         }
     }
 });

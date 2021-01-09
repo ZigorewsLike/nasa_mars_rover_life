@@ -25,3 +25,41 @@ div{
 .dateDivs:hover{
     color: rgb(167, 163, 194);
 }
+.roverChDiv{
+    height: 400px;
+}
+.roverImg{ 
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.roverChLabel{
+    padding-top: 125px;
+}
+.roverChLabel > div{
+    border-bottom: 1px gray solid;
+    -width: 200px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    -border-top: 1px gray solid;
+    transition: 0.1s ease-in;
+}
+.roverChLabel > div:hover{
+    color:rgb(115, 117, 185);
+}
+
+.slide-fade-enter-active {
+    transition: all .8s ease;
+  }
+  .slide-fade-leave-active {
+    display: none;
+  }
+  .slide-fade-enter, .slide-fade-leave-to{
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  .roverDiscription{
+      text-align: justify;
+  }
+  .marginStep{
+      margin-top: 30px;
+  }
