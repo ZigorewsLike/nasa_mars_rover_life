@@ -12,3 +12,16 @@ div{
 .row{
     margin: 0px;
 }
+.dateDivs{
+    width: fit-content;
+
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    transition: 0.1s ease-in;
+}
+.dateDivs:hover{
+    color: rgb(167, 163, 194);
+}

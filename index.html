@@ -9,16 +9,16 @@
     <script src="http://code.createjs.com/tweenjs-0.6.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
     <title>Nasa mars rover photos</title>
 </head>
 <body onload="draw_init()">
     <div id="app">
         <div class="container">
             <div class="row">
-                <div class="col-md-2"><img src="https://www.nasa.gov/sites/all/themes/custom/nasatwo/images/nasa-logo.svg" alt="nasa logo"></div>
-                <div class="col-md-5"><h1 style="line-height: 90px;">Nasa Mars Rover Photos</h1></div>
-                <div class="col-md-4"></div>
-                <div class="col-md-1"><h2 style="line-height: 90px; text-align: center;">Menu</h2></div>
+                <div class="col-2"><a href="https://api.nasa.gov/"><img src="source/nasa-logo.svg" alt="nasa logo"></a></div>
+                <div class="col-8"><h2 style="line-height: 90px;">Nasa Mars Rover Photos</h2></div>
+                <div class="col-2 text-right"><h2 style="line-height: 90px; text-align: center;">Menu</h2></div>
             </div>
             <hr>
             <div class="row">
@@ -33,7 +33,7 @@
                     Along with querying by date, results can also be filtered by the camera with which it was taken and responses will be limited to 25 photos per call. 
                     Queries that should return more than 25 photos will be split onto several pages, which can be accessed by adding a 'page' param to the query.
                 </div>
-                <div class="col-md-3"><img width="100%" src="https://mars.nasa.gov/msl-raw-images/msss/01000/mcam/1000MR0044631300503690E01_DXXX.jpg" alt="" srcset=""></div>
+                <div class="col-md-3"><img width="100%" src="source/photo1.jpg" alt="" srcset=""></div>
                 </div>
                 <div class="col-md-1"></div>
             
@@ -41,8 +41,8 @@
         <br>
         <div class="conteiner-fluid">
             <div class="row">
-                <div class="col-md-4  text-center" v-for="(item, index) in dateDivs.collection" :style="item.style" v-on:click="nextDate(index)" v-on:mousemove="animCanvas(index)" v-on:mouseleave="animCanvasOff(index)">
-                    <h1>{{item.text}}</h1>
+                <div class="col-4" v-for="(item, index) in dateDivs.collection">
+                    <center><h1 class="dateDivs" :style="item.style" v-on:click="nextDate(index)" v-on:mousemove="animCanvas(index)" v-on:mouseleave="animCanvasOff(index)">{{item.text}}</h1></center>
                 </div>
             </div>
             <!-- <img src="source/line.svg" alt="" srcset=""> -->
