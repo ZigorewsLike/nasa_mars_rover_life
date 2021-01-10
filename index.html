@@ -10,6 +10,7 @@
     <script src="http://code.createjs.com/tweenjs-0.6.2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Nasa mars rover photos</title>
@@ -21,7 +22,7 @@
                 <!-- <div class="col-2"><a href="https://api.nasa.gov/"><img src="source/nasa-logo.svg" alt="nasa logo"></a></div> -->
                 <div class="col-2 display-6" style="line-height: 90px;">NASA api</div>
                 <div class="col-8"><h2 style="line-height: 90px;">Nasa Mars Rover Life</h2></div>
-                <div class="col-2 text-right"><h2 style="line-height: 90px; text-align: center;">Menu</h2></div>
+                <div class="col-2 text-right"><h2 style="line-height: 90px; text-align: center;"></h2></div>
             </div>
             <hr>
             <div class="row">
@@ -62,7 +63,7 @@
                 <div class="roverDiscription">
                     <transition name="slide-fade">
                         <div v-show="roverName=='curiosity'">
-                            <p>Curiosity is a car-sized Mars rover designed to explore the Gale crater on Mars as part of NASA's Mars Science Laboratory (MSL) mission.[2] Curiosity was launched from Cape Canaveral on November 26, 2011, at 15:02 UTC and landed on Aeolis Palus inside Gale on Mars on August 6, 2012, 05:17 UTC.[5][6][9] The Bradbury Landing site was less than 2.4 km (1.5 mi) from the center of the rover's touchdown target after a 560 million km (350 million mi) journey.[10][11] The rover's goals include an investigation of the Martian climate and geology, assessment of whether the selected field site inside Gale has ever offered environmental conditions favorable for microbial life (including investigation of the role of water), and planetary habitability studies in preparation for human exploration.</p>
+                            <p>Curiosity is a car-sized Mars rover designed to explore the Gale crater on Mars as part of NASA's Mars Science Laboratory (MSL) mission. Curiosity was launched from Cape Canaveral on November 26, 2011, at 15:02 UTC and landed on Aeolis Palus inside Gale on Mars on August 6, 2012, 05:17 UTC. The Bradbury Landing site was less than 2.4 km (1.5 mi) from the center of the rover's touchdown target after a 560 million km (350 million mi) journey. The rover's goals include an investigation of the Martian climate and geology, assessment of whether the selected field site inside Gale has ever offered environmental conditions favorable for microbial life (including investigation of the role of water), and planetary habitability studies in preparation for human exploration.</p>
                             <table class="table table-dark ">
                                 <tbody>
                                     <tr>
@@ -83,7 +84,7 @@
                     </transition>
                     <transition name="slide-fade">
                         <div v-show="roverName=='spirit'">
-                            <p>Spirit, also known as MER-A (Mars Exploration Rover – A) or MER-2, is a robotic rover on Mars, active from 2004 to 2010.[2] It was one of two rovers of NASA's Mars Exploration Rover Mission. It landed successfully within the impact crater Gusev on Mars at 04:35 Ground UTC on January 4, 2004, three weeks before its twin, Opportunity (MER-B), which landed on the other side of the planet. Its name was chosen through a NASA-sponsored student essay competition. The rover became stuck in a "sand trap" in late 2009 at an angle that hampered recharging of its batteries; its last communication with Earth was sent on March 22, 2010.</p>
+                            <p>Spirit, also known as MER-A (Mars Exploration Rover – A) or MER-2, is a robotic rover on Mars, active from 2004 to 2010. It was one of two rovers of NASA's Mars Exploration Rover Mission. It landed successfully within the impact crater Gusev on Mars at 04:35 Ground UTC on January 4, 2004, three weeks before its twin, Opportunity (MER-B), which landed on the other side of the planet. Its name was chosen through a NASA-sponsored student essay competition. The rover became stuck in a "sand trap" in late 2009 at an angle that hampered recharging of its batteries; its last communication with Earth was sent on March 22, 2010.</p>
                             <table class="table table-dark">
                                 <tbody>
                                     <tr>
@@ -104,7 +105,7 @@
                     </transition>    
                     <transition name="slide-fade">
                         <div v-show="roverName=='opportunity'">
-                            <p>Opportunity, also known as MER-B (Mars Exploration Rover – B) or MER-1, and nicknamed "Oppy",[8] is a robotic rover that was active on Mars from 2004 until the middle of 2018.[2] Launched on July 7, 2003, as part of NASA's Mars Exploration Rover program, it landed in Meridiani Planum on January 25, 2004, three weeks after its twin Spirit (MER-A) touched down on the other side of the planet.[9] With a planned 90-sol duration of activity (slightly less than 92.5 Earth days), Spirit functioned until it got stuck in 2009 and ceased communications in 2010, while Opportunity was able to stay operational for 5111 sols after landing, maintaining its power and key systems through continual recharging of its batteries using solar power, and hibernating during events such as dust storms to save power. This careful operation allowed Opportunity to exceed its operating plan by 14 years, 46 days (in Earth time), 55 times its designed lifespan. By June 10, 2018, when it last contacted NASA,[10][11] the rover had traveled a distance of 45.16 kilometers (28.06 miles)</p>
+                            <p>Opportunity, also known as MER-B (Mars Exploration Rover – B) or MER-1, and nicknamed "Oppy", is a robotic rover that was active on Mars from 2004 until the middle of 2018. Launched on July 7, 2003, as part of NASA's Mars Exploration Rover program, it landed in Meridiani Planum on January 25, 2004, three weeks after its twin Spirit (MER-A) touched down on the other side of the planet. With a planned 90-sol duration of activity (slightly less than 92.5 Earth days), Spirit functioned until it got stuck in 2009 and ceased communications in 2010, while Opportunity was able to stay operational for 5111 sols after landing, maintaining its power and key systems through continual recharging of its batteries using solar power, and hibernating during events such as dust storms to save power. This careful operation allowed Opportunity to exceed its operating plan by 14 years, 46 days (in Earth time), 55 times its designed lifespan. By June 10, 2018, when it last contacted NASA, the rover had traveled a distance of 45.16 kilometers (28.06 miles)</p>
                             <table class="table table-dark">
                                 <tbody>
                                     <tr>
@@ -155,9 +156,11 @@
             </canvas>
         </div>
     
-        <div class="container">
+        <div class="conteiner-fluid">
             <div class="row">
-                
+                <div class="col-3" v-for="(item, index) in divPhotos"><p>{{item.nameCamera}}</p>
+                    <img width="100%" :src=item.imgSrc alt="" srcset="">
+                </div>
                 <!-- <div class="col-md-5"><img width="100%" src="source/rovers/curiosity.jpg" alt="" srcset=""></div> -->
             </div>
         </div>
@@ -171,6 +174,7 @@
                 <div class="col-md-4" id="clicked2">anim[1] = false</div>
                 <div class="col-md-4" id="clicked3">anim[2] = false</div>
             </div>
+            <div v-on:click="getImages">Api get</div>
             
         </div>
     </div>

@@ -38,7 +38,11 @@ new Vue({
             roverImage: {
                 backgroundImage: "url(source/rovers/curiosity.jpg)",
             },
+            divPhotos: [],
         }
+    },
+    created: function(){
+        this.getImages();
     },
     updated: function () {
         console.log(this.curentDateStr);
@@ -58,6 +62,7 @@ new Vue({
             for(let i=0;i<3;i++){
                 this.dateDivs.collection[i].text = new Date(this.lockDate - 86400000 * (this.dateStep+(2-i-1))).toISOString().substring(0,10);
             }
+            this.getImages();
         }
         
     },
@@ -109,6 +114,7 @@ new Vue({
                     }else{
                         this.posX += clientWidth/3;
                     }
+                    this.getImages();
                 }else if(index == 2 && this.dateStep > 0){
                     this.dateDivs.change = true;
                     cir_shape[0].lock = true;
@@ -120,6 +126,7 @@ new Vue({
                     }else{
                         this.posX += clientWidth/3;
                     }
+                    this.getImages();
                 }
                 for(let i=0;i<3;i++){
                     this.dateDivs.collection[i].text = new Date(this.lockDate - 86400000 * (this.dateStep+(2-i-1))).toISOString().substring(0,10);
@@ -137,6 +144,30 @@ new Vue({
         },
         viewRover(name){
             this.roverImage.backgroundImage = 'url(source/rovers/' + name + '.jpg)'
+        },
+        getImages : async function(){
+            let YOUR_KEY = "DEMO_KEY";
+            await axios({
+                url: 'https://api.nasa.gov/mars-photos/api/v1/rovers/' + this.roverName + '/photos?earth_date=' 
+                + new Date(this.lockDate - 86400000 * (this.dateStep)).toISOString().substring(0,10) 
+                + '&api_key=' 
+                + YOUR_KEY,
+            }).then(response => {
+                console.log(response.data);
+                this.divPhotos = [];
+                //this.roverImage.backgroundImage = "url(" + response.data.photos[0].img_src + ")";
+                for(let i=0;i<response.data.photos.length;i++){
+                    this.divPhotos.push({
+                        nameCamera: response.data.photos[i].camera.full_name,
+                        stylePhoto: {
+                            backgroundImage: "url(" + response.data.photos[i].img_src + ")",
+                        },
+                        imgSrc: response.data.photos[i].img_src,
+                    });
+                }
+              }).catch(function(error){
+                console.log('api error', error)
+            });
         }
     }
 });
