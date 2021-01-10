@@ -3,7 +3,9 @@ new Vue({
     data(){
         return{
             dateStep: 0,
-            curentDate: Date.now(),
+            curentDateStr: new Date(Date.now()).toISOString().substring(0,10),
+            curentDate: new Date(Date.now()),
+            lockDate: new Date(Date.now()),
             dateDivs:{
                 collection: [
                     { 
@@ -39,7 +41,25 @@ new Vue({
         }
     },
     updated: function () {
-
+        console.log(this.curentDateStr);
+        if(new Date(this.curentDate).toISOString().substring(0,10) != this.curentDateStr){
+            this.curentDate = new Date(this.curentDateStr);
+            if(this.roverName == "opportunity")
+                this.lockDate = new Date("2018-06-10");
+            else if(this.roverName == "spirit")
+                this.lockDate = new Date("2010-03-22");
+            else
+                this.lockDate = new Date(new Date(Date.now()).toISOString().substring(0,10));
+            this.dateStep = Math.ceil((this.lockDate - this.curentDate)/86400000);
+            console.log("Update");
+            console.log(new Date(this.curentDate));
+            if(new Date(this.curentDateStr) > this.lockDate)
+                this.curentDateStr = new Date(this.lockDate).toISOString().substring(0,10);
+            for(let i=0;i<3;i++){
+                this.dateDivs.collection[i].text = new Date(this.lockDate - 86400000 * (this.dateStep+(2-i-1))).toISOString().substring(0,10);
+            }
+        }
+        
     },
     watch: {
         posX: function(newValue) {
@@ -102,7 +122,7 @@ new Vue({
                     }
                 }
                 for(let i=0;i<3;i++){
-                    this.dateDivs.collection[i].text = new Date(Date.now() - 86400000 * (this.dateStep+(2-i-1))).toISOString().substring(0,10);
+                    this.dateDivs.collection[i].text = new Date(this.lockDate - 86400000 * (this.dateStep+(2-i-1))).toISOString().substring(0,10);
                 }
                 if(index == 0){
                     

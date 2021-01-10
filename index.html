@@ -18,8 +18,9 @@
     <div id="app">
         <div class="container">
             <div class="row">
-                <div class="col-2"><a href="https://api.nasa.gov/"><img src="source/nasa-logo.svg" alt="nasa logo"></a></div>
-                <div class="col-8"><h2 style="line-height: 90px;">Nasa Mars Rover Photos</h2></div>
+                <!-- <div class="col-2"><a href="https://api.nasa.gov/"><img src="source/nasa-logo.svg" alt="nasa logo"></a></div> -->
+                <div class="col-2 display-6" style="line-height: 90px;">NASA api</div>
+                <div class="col-8"><h2 style="line-height: 90px;">Nasa Mars Rover Life</h2></div>
                 <div class="col-2 text-right"><h2 style="line-height: 90px; text-align: center;">Menu</h2></div>
             </div>
             <hr>
@@ -38,24 +39,26 @@
                 <div class="col-md-3"><img width="100%" src="source/photo1.jpg" alt="" srcset=""></div>
             </div>
             <div class="row">
-                <h1 class="text-center marginStep">Choose your rover</h1>
+                <h1 class="text-center marginStep">Choose rover</h1>
                 <div class="col-md-2"></div>
                 <div class="col-md-5"><div class="roverImg roverChDiv" :style="roverImage"></div></div>
                 <div class="col-md-3 roverChDiv">
                     <div class="roverChLabel">
-                        <div v-on:mousemove="viewRover('curiosity')"><h3 v-on:click="chooseRover('curiosity')" class="text-center">
+                        <div v-on:mousemove="viewRover('curiosity')" v-on:click="chooseRover('curiosity')"><h3 class="text-center">
                             Curiosity <i v-if="roverName=='curiosity'" class="material-icons">done_outline</i>
                         </h3></div>
-                        <div v-on:mousemove="viewRover('opportunity')"><h3 v-on:click="chooseRover('opportunity')" class="text-center">
+                        <div v-on:mousemove="viewRover('opportunity')" v-on:click="chooseRover('opportunity')"><h3 class="text-center">
                             Opportunity <i v-if="roverName=='opportunity'" class="material-icons">done_outline</i>
                         </h3></div>
-                        <div v-on:mousemove="viewRover('spirit')"><h3 v-on:click="chooseRover('spirit')" class="text-center">
+                        <div v-on:mousemove="viewRover('spirit')" v-on:click="chooseRover('spirit')"><h3 class="text-center">
                             Spirit <i v-if="roverName=='spirit'" class="material-icons">done_outline</i>
                         </h3></div>
                     </div>
                     <br>
                 </div>
-                <h1 class="text-center marginStep">Rover: {{roverName}}</h1>
+            </div>
+            <div class="row">
+                <h2 class="text-center marginStep">Rover: {{roverName}}</h2>
                 <div class="roverDiscription">
                     <transition name="slide-fade">
                         <div v-show="roverName=='curiosity'">
@@ -76,8 +79,7 @@
                                     </tr> 
                                 </tbody>
                             </table>
-                        </div>
-                        
+                        </div>    
                     </transition>
                     <transition name="slide-fade">
                         <div v-show="roverName=='spirit'">
@@ -122,13 +124,26 @@
                         </div> 
                     </transition>
                 </div>
+            </div>
+            <h2 class="text-center marginStep">Select date</h2>
+            <center>
+                <label for="curDate"><h4>Selected date: </h4></label>
+                <input type="date" id="curDate" name="curDate" v-model="curentDateStr">
+                <div v-if="roverName=='opportunity'">
+                    <p class="text-warning">Last contact: June 10, 2018 </p>
+                </div>
+                <div v-else-if="roverName=='spirit'">
+                    <p class="text-warning">Last contact: March 22, 2010 </p>
+                </div>
+            </center>
+            <div class="row">
                 
             </div>
-            <label for="birthday">Birthday:</label>
-            <input type="date" id="birthday" name="birthday">
+            
         </div>
         <br>
         <div class="conteiner-fluid">
+            <h2 class="text-center marginStep">Time line</h2>
             <div class="row">
                 <div class="col-4" v-for="(item, index) in dateDivs.collection">
                     <center><h1 class="dateDivs" :style="item.style" v-on:click="nextDate(index)" v-on:mousemove="animCanvas(index)" v-on:mouseleave="animCanvasOff(index)">{{item.text}}</h1></center>
