@@ -39,10 +39,13 @@ new Vue({
                 backgroundImage: "url(source/rovers/curiosity.jpg)",
             },
             divPhotos: [],
+            divPhotosLen: 0,
+            divPhotoLimit: 20,
+            divPhotoStep: 0,
         }
     },
     created: function(){
-        this.getImages();
+        //this.getImages();
     },
     updated: function () {
         console.log(this.curentDateStr);
@@ -146,7 +149,7 @@ new Vue({
             this.roverImage.backgroundImage = 'url(source/rovers/' + name + '.jpg)'
         },
         getImages : async function(){
-            let YOUR_KEY = "DEMO_KEY";
+            let YOUR_KEY = "D6BXaCvYC9sAY8eatWjxLXApUhhNVdPq5yRcmOYm";
             await axios({
                 url: 'https://api.nasa.gov/mars-photos/api/v1/rovers/' + this.roverName + '/photos?earth_date=' 
                 + new Date(this.lockDate - 86400000 * (this.dateStep)).toISOString().substring(0,10) 
@@ -156,6 +159,7 @@ new Vue({
                 console.log(response.data);
                 this.divPhotos = [];
                 //this.roverImage.backgroundImage = "url(" + response.data.photos[0].img_src + ")";
+                this.divPhotosLen = response.data.photos.length;
                 for(let i=0;i<response.data.photos.length;i++){
                     this.divPhotos.push({
                         nameCamera: response.data.photos[i].camera.full_name,
@@ -168,6 +172,6 @@ new Vue({
               }).catch(function(error){
                 console.log('api error', error)
             });
-        }
+        },
     }
 });

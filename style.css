@@ -58,8 +58,44 @@ div{
     opacity: 0;
   }
   .roverDiscription{
-      text-align: justify;
+    text-align: justify;
   }
   .marginStep{
-      margin-top: 30px;
+    margin-top: 30px;
   }
+  .divPhoto{
+    position: relative;
+    background-size: contain;
+    background-repeat: no-repeat;
+    max-height: calc(width);
+    padding-top: 100%;
+    transition: 0.4s ease-in;    
+  }
+  .divPhotoLabl{
+    overflow:hiden;
+    position:absolute;
+    width: 100%;
+    text-align: center;
+    top: 0px;
+    left: 0px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15pt;
+    background-color: rgba(31, 31, 31, 0.37);
+    color: white;
+    -text-shadow: 1px 1px 2px black;
+  }
+  .divPhotoContainer{
+    position:relative;
+    -margin-bottom: 5px;
+    -margin-top: 5px;
+    padding: 0px;
+  }
+  .divPhotoContainer > div{
+      padding: 10px;
+      transition: 0.1s ease-in;
+  }
+  .divPhotoContainer > div:hover{
+    padding: 0px;
+    -padding-top: 10px;
+}

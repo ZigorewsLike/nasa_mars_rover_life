@@ -158,8 +158,12 @@
     
         <div class="conteiner-fluid">
             <div class="row">
-                <div class="col-3" v-for="(item, index) in divPhotos"><p>{{item.nameCamera}}</p>
-                    <img width="100%" :src=item.imgSrc alt="" srcset="">
+                <div class="col-xl-3 col-lg-4 divPhotoContainer" v-for="(item, index) in divPhotos" v-if="index < divPhotoLimit">
+                    <div style="width: 100%;">
+                        <div style="position: absolute;">Loading</div>
+                        <!-- <img class="divPhoto" width="100%" :src=item.imgSrc alt="" srcset=""> -->
+                        <div class="divPhoto" :style="item.stylePhoto"><div class="divPhotoLabl">{{item.nameCamera}}</div></div>
+                    </div>
                 </div>
                 <!-- <div class="col-md-5"><img width="100%" src="source/rovers/curiosity.jpg" alt="" srcset=""></div> -->
             </div>
@@ -181,4 +185,5 @@
     <script src="canvas.js" async></script>
     <script src="app.js"></script>
 </body>
+<footer>zigorewslike@gmail.com Igor Cherepanov</footer>
 </html>
