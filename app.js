@@ -149,6 +149,7 @@ new Vue({
             this.roverImage.backgroundImage = 'url(source/rovers/' + name + '.jpg)'
         },
         getImages : async function(){
+            //this.divPhotosLen = 0;
             let YOUR_KEY = "D6BXaCvYC9sAY8eatWjxLXApUhhNVdPq5yRcmOYm";
             await axios({
                 url: 'https://api.nasa.gov/mars-photos/api/v1/rovers/' + this.roverName + '/photos?earth_date=' 
