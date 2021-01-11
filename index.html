@@ -26,8 +26,7 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-7" style="text-align:justify;">Mars Rover Photos
+                <div class="col-md-7 offset-md-1" style="text-align:justify;">Mars Rover Photos
                     This API is designed to collect image data gathered by NASA's Curiosity, Opportunity, and Spirit rovers on Mars and make it more easily available to other developers, educators, and citizen scientists. 
                     This API is maintained by Chris Cerami.
                     Each rover has its own set of photos stored in the database, which can be queried separately. There are several possible queries that can be made against the API. 
@@ -41,8 +40,7 @@
             </div>
             <div class="row">
                 <h1 class="text-center marginStep">Choose rover</h1>
-                <div class="col-md-2"></div>
-                <div class="col-md-5"><div class="roverImg roverChDiv" :style="roverImage"></div></div>
+                <div class="col-md-5 offset-md-2"><div class="roverImg roverChDiv" :style="roverImage"></div></div>
                 <div class="col-md-3 roverChDiv">
                     <div class="roverChLabel">
                         <div v-on:mousemove="viewRover('curiosity')" v-on:click="chooseRover('curiosity')"><h3 class="text-center">
@@ -171,12 +169,10 @@
     
         <div class="conteiner-fluid marginStep">
             <center>
-                <div v-if="imgFullSize.fullSize" v-on:click="imgFullSize.fullSize = false" class="row imgFullCont">
-                    <div class="col-2 imgFullSizeNull"></div>
-                    <div class="col-8 imgFullSize" :style="imgFullSize.style">
-                        X
+                <div v-if="imgFullSize.fullSize" v-on:click="closeImg" class="imgFullCont">
+                    <div id="imgFullDiv" class="imgFullSize">
+                        <img id="imgFullImg" class="imgFullSize" :style="imgFullSize.style" :src="imgFullSize.path" alt="" srcset="" v-on:mousemove="imgFullSize.cursorLock = true" v-on:mouseleave="imgFullSize.cursorLock = false">
                     </div>
-                    <div class="col-2 imgFullSizeNull" v-on:click="imgFullSize.fullSize = false"></div>
                 </div>
             </center>
             
@@ -195,7 +191,7 @@
             </div>
         </div>
         
-        <div class="container">
+        <div class="container" v-if="dubug">
             <br>
             <hr>
             <h2 class="text-center">Debug</h2>
@@ -211,5 +207,5 @@
     <script src="canvas.js" async></script>
     <script src="app.js"></script>
 </body>
-<footer>zigorewslike@gmail.com Igor Cherepanov</footer>
+<footer class="marginStep">zigorewslike@gmail.com Igor Cherepanov</footer>
 </html>

@@ -32,8 +32,8 @@ function draw_init(){
         //circle.addEventListener("mouseout", function(e){e.target.anim = false;});
         stage.addChild(circle);
         cir_shape.push(circle);
-        console.log(circle);
-        console.log(circle.graphics.command.x);
+        //console.log(circle);
+        //console.log(circle.graphics.command.x);
     }
 
     base_line = new createjs.Shape();
@@ -44,7 +44,7 @@ function draw_init(){
     polygon.graphics.beginStroke("white");
     polygon.graphics.beginFill("white").moveTo(clientWidth/2-10, 60).lineTo(clientWidth/2+10, 60).lineTo(clientWidth/2, 40).lineTo(clientWidth/2-10, 60);
     stage.addChild(polygon);
-    console.log(polygon);
+    //console.log(polygon);
 
     createjs.Ticker.framerate=60; 
     createjs.Ticker.addEventListener("tick", tick);

@@ -2,6 +2,7 @@ new Vue({
     el: '#app',
     data(){
         return{
+            dubug: false,
             dateStep: 0,
             curentDateStr: new Date(Date.now()).toISOString().substring(0,10),
             curentDate: new Date(Date.now()),
@@ -44,17 +45,21 @@ new Vue({
             divPhotoStep: 0,
             imgFullSize: {
                 style: {
-                    backgroundImage: 'url("source/photo1.jpg")',
+                    //backgroundImage: 'url("source/photo1.jpg")',
+                    top: '0px',
+                    left: '0px',
                 },
                 fullSize: false,
+                cursorLock: false,
+                path: '',
             }
         }
     },
     created: function(){
         //this.getImages();
+        window.addEventListener("resize", this.resizeImageFull);
     },
     updated: function () {
-        console.log(this.curentDateStr);
         if(new Date(this.curentDate).toISOString().substring(0,10) != this.curentDateStr){
             this.curentDate = new Date(this.curentDateStr);
             if(this.roverName == "opportunity")
@@ -64,8 +69,6 @@ new Vue({
             else
                 this.lockDate = new Date(new Date(Date.now()).toISOString().substring(0,10));
             this.dateStep = Math.ceil((this.lockDate - this.curentDate)/86400000);
-            console.log("Update");
-            console.log(new Date(this.curentDate));
             if(new Date(this.curentDateStr) > this.lockDate)
                 this.curentDateStr = new Date(this.lockDate).toISOString().substring(0,10);
             for(let i=0;i<3;i++){
@@ -73,7 +76,7 @@ new Vue({
             }
             this.getImages();
         }
-        
+              
     },
     watch: {
         posX: function(newValue) {
@@ -155,7 +158,6 @@ new Vue({
             this.roverImage.backgroundImage = 'url(source/rovers/' + name + '.jpg)'
         },
         getImages : async function(){
-            //this.divPhotosLen = 0;
             let YOUR_KEY = "D6BXaCvYC9sAY8eatWjxLXApUhhNVdPq5yRcmOYm";
             await axios({
                 url: 'https://api.nasa.gov/mars-photos/api/v1/rovers/' + this.roverName + '/photos?earth_date=' 
@@ -165,7 +167,6 @@ new Vue({
             }).then(response => {
                 console.log(response.data);
                 this.divPhotos = [];
-                //this.roverImage.backgroundImage = "url(" + response.data.photos[0].img_src + ")";
                 this.divPhotosLen = response.data.photos.length;
                 for(let i=0;i<response.data.photos.length;i++){
                     this.divPhotos.push({
@@ -180,9 +181,52 @@ new Vue({
                 console.log('api error', error)
             });
         },
-        openImage : function(ind){
+        openImage : async function(ind){
             this.imgFullSize.fullSize = true;
-            this.imgFullSize.style.backgroundImage = this.divPhotos[ind].stylePhoto.backgroundImage;
+            this.imgFullSize.style.top = 1 + 'px';
+            var img = new Image();
+            let vu = this;
+            img.src = this.divPhotos[ind].imgSrc;
+            img.onload = function(){
+                let elem = document.getElementById("imgFullDiv");
+                let img_elem = document.getElementById("imgFullImg");
+                if(img_elem.clientWidth > elem.clientWidth+50){
+                     vu.imgFullSize.style.width = '100%';
+                     vu.imgFullSize.style.height = 'auto';
+                }else if(img_elem.clientHeight > elem.clientHeight+50){
+                    vu.imgFullSize.style.width = 'auto';
+                    vu.imgFullSize.style.height = '100%'; 
+                }
+                vu.imgFullSize.style.left = clientWidth/2 - img.width/2 + 'px';
+                vu.imgFullSize.style.top = elem.clientHeight/2 - img.height/2 + 25 +  'px';
+                setTimeout(function () {
+                    vu.resizeImageFull();
+                }, 30);
+                
+            };
+            this.imgFullSize.path = this.divPhotos[ind].imgSrc;
+        },
+        closeImg(){
+            if(!this.imgFullSize.cursorLock){
+                this.imgFullSize.fullSize = false;
+            }
+        },
+        resizeImageFull: async function(e){
+            console.log("resize");
+            if(this.imgFullSize.fullSize){
+                let elem = document.getElementById("imgFullDiv");
+                let img_elem = document.getElementById("imgFullImg");
+                console.log(img_elem.clientWidth + ";" + elem.clientWidth);
+                if(img_elem.clientWidth > elem.clientWidth+50){
+                     this.imgFullSize.style.width = '100%';
+                     this.imgFullSize.style.height = 'auto';
+                }else if(img_elem.clientHeight > elem.clientHeight+50){
+                    this.imgFullSize.style.width = 'auto';
+                    this.imgFullSize.style.height = '100%';
+                }
+                this.imgFullSize.style.top = elem.clientHeight/2 - img_elem.clientHeight/2 + 10 +  'px';
+                this.imgFullSize.style.left = elem.clientWidth/2 - img_elem.clientWidth/2 + 'px';
+            }
         }
     }
 });
