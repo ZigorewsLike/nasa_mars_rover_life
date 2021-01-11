@@ -42,6 +42,12 @@ new Vue({
             divPhotosLen: 0,
             divPhotoLimit: 20,
             divPhotoStep: 0,
+            imgFullSize: {
+                style: {
+                    backgroundImage: 'url("source/photo1.jpg")',
+                },
+                fullSize: false,
+            }
         }
     },
     created: function(){
@@ -174,5 +180,9 @@ new Vue({
                 console.log('api error', error)
             });
         },
+        openImage : function(ind){
+            this.imgFullSize.fullSize = true;
+            this.imgFullSize.style.backgroundImage = this.divPhotos[ind].stylePhoto.backgroundImage;
+        }
     }
 });

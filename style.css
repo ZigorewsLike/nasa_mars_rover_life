@@ -32,6 +32,7 @@ div{
     background-size: contain;
     background-repeat: no-repeat;
     transition: 0.15s ease-in;
+    background-position: center;
 }
 .roverChLabel{
     padding-top: 125px;
@@ -49,29 +50,30 @@ div{
 
 .slide-fade-enter-active {
     transition: all .8s ease;
-  }
-  .slide-fade-leave-active {
+}
+.slide-fade-leave-active {
     display: none;
-  }
-  .slide-fade-enter, .slide-fade-leave-to{
+}
+.slide-fade-enter, .slide-fade-leave-to{
     transform: translateX(10px);
     opacity: 0;
-  }
-  .roverDiscription{
+}
+.roverDiscription{
     text-align: justify;
-  }
-  .marginStep{
-    margin-top: 30px;
-  }
-  .divPhoto{
+}
+.marginStep{
+  margin-top: 30px;
+}
+.divPhoto{
     position: relative;
     background-size: contain;
     background-repeat: no-repeat;
     max-height: calc(width);
     padding-top: 100%;
-    transition: 0.4s ease-in;    
-  }
-  .divPhotoLabl{
+    transition: 0.4s ease-in;  
+    cursor: pointer;  
+}
+.divPhotoLabl{
     overflow:hiden;
     position:absolute;
     width: 100%;
@@ -83,19 +85,53 @@ div{
     font-size: 15pt;
     background-color: rgba(31, 31, 31, 0.37);
     color: white;
-    -text-shadow: 1px 1px 2px black;
-  }
-  .divPhotoContainer{
+    
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+.divPhotoContainer{
     position:relative;
-    -margin-bottom: 5px;
-    -margin-top: 5px;
     padding: 0px;
-  }
-  .divPhotoContainer > div{
-      padding: 10px;
-      transition: 0.1s ease-in;
-  }
-  .divPhotoContainer > div:hover{
+}
+.divPhotoContainer > div{
+    padding: 10px;
+    transition: 0.1s ease-in;
+}
+.divPhotoContainer > div:hover{
     padding: 0px;
-    -padding-top: 10px;
+}
+.imgFullSize{
+  -top: 0px;
+  -left: 0px;
+  -position: fixed;
+  background-color: rgb(14, 14, 14);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: calc(100% - 40px);
+  -width: 100%;
+  z-index: 10000;
+  margin-top: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.534);
+  pointer-events: none;
+}
+.imgFullCont{
+  height: 100%;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.445);
+  z-index: 10000;
+}
+.imgFullSizeNull{
+  -background-color: rgba(0, 0, 0, 0.144);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 100%;
+  cursor: pointer;
+  -pointer-events: none;
 }

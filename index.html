@@ -155,14 +155,39 @@
                 line
             </canvas>
         </div>
+        <center>
+            <label for="ice-cream-choice">Choose a limit photos: </label>
+            <input type="number" list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice" v-model="divPhotoLimit"/>
     
-        <div class="conteiner-fluid">
+            <datalist id="ice-cream-flavors">
+                <option value="5">
+                <option value="20">
+                <option value="50">
+                <option value="100">
+                <option value="1000">
+            </datalist>
+        </center>
+        
+    
+        <div class="conteiner-fluid marginStep">
+            <center>
+                <div v-if="imgFullSize.fullSize" v-on:click="imgFullSize.fullSize = false" class="row imgFullCont">
+                    <div class="col-2 imgFullSizeNull"></div>
+                    <div class="col-8 imgFullSize" :style="imgFullSize.style">
+                        X
+                    </div>
+                    <div class="col-2 imgFullSizeNull" v-on:click="imgFullSize.fullSize = false"></div>
+                </div>
+            </center>
+            
             <div class="row">
                 <div class="col-xl-3 col-lg-4 divPhotoContainer" v-for="(item, index) in divPhotos" v-if="index < divPhotoLimit">
                     <div style="width: 100%;">
                         <div style="position: absolute;">Loading</div>
                         <!-- <img class="divPhoto" width="100%" :src=item.imgSrc alt="" srcset=""> -->
-                        <div class="divPhoto" :style="item.stylePhoto"><div class="divPhotoLabl">{{item.nameCamera}}</div></div>
+                        <div class="divPhoto" :style="item.stylePhoto" v-on:click="openImage(index)">
+                            <div class="divPhotoLabl">{{item.nameCamera}}</div>
+                        </div>
                     </div>
                 </div>
                 <h1 class="text-center" v-if="divPhotosLen == 0">No photos</h1>
