@@ -169,12 +169,14 @@ new Vue({
                 this.divPhotos = [];
                 this.divPhotosLen = response.data.photos.length;
                 for(let i=0;i<response.data.photos.length;i++){
+                    let img_src = response.data.photos[i].img_src;
+                    img_src = img_src.replace('http:', 'https:');
                     this.divPhotos.push({
                         nameCamera: response.data.photos[i].camera.full_name,
                         stylePhoto: {
-                            backgroundImage: "url(" + response.data.photos[i].img_src + ")",
+                            backgroundImage: "url(" + img_src + ")",
                         },
-                        imgSrc: response.data.photos[i].img_src,
+                        imgSrc: img_src,
                     });
                 }
               }).catch(function(error){
