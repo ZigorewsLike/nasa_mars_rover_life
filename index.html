@@ -154,16 +154,21 @@
             </canvas>
         </div>
         <center>
-            <label for="ice-cream-choice">Choose a limit photos: </label>
-            <input type="number" list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice" v-model="divPhotoLimit"/>
-    
-            <datalist id="ice-cream-flavors">
-                <option value="5">
-                <option value="20">
-                <option value="50">
-                <option value="100">
-                <option value="1000">
-            </datalist>
+            <div class="row">
+                <div class="col">
+                    Result: {{divPhotosLen}} photos
+                </div>
+                <!-- <div class="col">
+                    <label for="limitPhotos">Choose a limit photos: </label>
+                    <input style="width: 60px;" type="number" id="limitPhotos" name="limitPhotos" v-model="divPhotoLimit"/>
+                </div> -->
+            </div>  
+            <div class="pageLine">
+                <div v-for="ind in Math.ceil(divPhotosLen/divPhotoLimit)" :key="ind" class="pageElem" v-on:click="changePage(ind)">
+                    <p v-if="ind == divPageNum" style="color: gray;text-decoration: underline;">{{ind}}</p>
+                    <p v-else>{{ind}}</p>
+                </div>
+            </div>
         </center>
         
     
@@ -177,11 +182,11 @@
             </center>
             
             <div class="row">
-                <div class="col-xl-3 col-lg-4 divPhotoContainer" v-for="(item, index) in divPhotos" v-if="index < divPhotoLimit">
+                <div class="col-xl-3 col-lg-4 divPhotoContainer" v-for="(item, index) in divPhotos" v-if="index < divPhotoLimit*divPageNum && index >= divPhotoLimit*(divPageNum-1)">
                     <div style="width: 100%;">
                         <div style="position: absolute;">Loading</div>
                         <!-- <img class="divPhoto" width="100%" :src=item.imgSrc alt="" srcset=""> -->
-                        <div class="divPhoto" :style="item.stylePhoto" v-on:click="openImage(index)">
+                        <div :id="'divPhoto' + index" class="divPhoto" :style="item.stylePhoto" v-on:click="openImage(index)">
                             <div class="divPhotoLabl">{{item.nameCamera}}</div>
                         </div>
                     </div>
@@ -206,6 +211,21 @@
     </div>
     <script src="canvas.js" async></script>
     <script src="app.js"></script>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    
+        ym(71129116, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/71129116" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 </body>
-<footer class="marginStep">zigorewslike@gmail.com Igor Cherepanov</footer>
+<footer class="marginStep">zigorewslike@gmail.com Igor Cherepanov
+</footer>
 </html>

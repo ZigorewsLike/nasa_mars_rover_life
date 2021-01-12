@@ -43,6 +43,7 @@ new Vue({
             divPhotosLen: 0,
             divPhotoLimit: 20,
             divPhotoStep: 0,
+            divPageNum: 1,
             imgFullSize: {
                 style: {
                     //backgroundImage: 'url("source/photo1.jpg")',
@@ -158,6 +159,7 @@ new Vue({
             this.roverImage.backgroundImage = 'url(source/rovers/' + name + '.jpg)'
         },
         getImages : async function(){
+            this.divPageNum = 1;
             let YOUR_KEY = "D6BXaCvYC9sAY8eatWjxLXApUhhNVdPq5yRcmOYm";
             await axios({
                 url: 'https://api.nasa.gov/mars-photos/api/v1/rovers/' + this.roverName + '/photos?earth_date=' 
@@ -175,9 +177,17 @@ new Vue({
                         nameCamera: response.data.photos[i].camera.full_name,
                         stylePhoto: {
                             backgroundImage: "url(" + img_src + ")",
+                            paddingTop: '500px',
                         },
                         imgSrc: img_src,
                     });
+                    var img = new Image();
+                    let vu = this;
+                    img.src = img_src;
+                    img.onload = function(){
+                        console.log(i);
+                        vu.resizeMini(i);
+                    };
                 }
               }).catch(function(error){
                 console.log('api error', error)
@@ -189,6 +199,7 @@ new Vue({
             var img = new Image();
             let vu = this;
             img.src = this.divPhotos[ind].imgSrc;
+            this.imgFullSize.style.opacity = 0;
             img.onload = function(){
                 let elem = document.getElementById("imgFullDiv");
                 let img_elem = document.getElementById("imgFullImg");
@@ -203,7 +214,8 @@ new Vue({
                 vu.imgFullSize.style.top = elem.clientHeight/2 - img.height/2 + 25 +  'px';
                 setTimeout(function () {
                     vu.resizeImageFull();
-                }, 30);
+                    vu.imgFullSize.style.opacity = 1;
+                }, 10);
                 
             };
             this.imgFullSize.path = this.divPhotos[ind].imgSrc;
@@ -229,6 +241,28 @@ new Vue({
                 this.imgFullSize.style.top = elem.clientHeight/2 - img_elem.clientHeight/2 + 10 +  'px';
                 this.imgFullSize.style.left = elem.clientWidth/2 - img_elem.clientWidth/2 + 'px';
             }
+            for(let ind=0;ind<this.divPhotosLen;ind++){
+                this.resizeMini(ind);
+            }
+        },
+        resizeMini: function(ind){
+            try{
+                if(this.divPhotos[ind].stylePhoto.paddingTop == '500px'){
+                    img = new Image();
+                    img.src = this.divPhotos[ind].imgSrc;
+                    if(img.naturalWidth !=0 && img.naturalHeight != 0){
+                        let scale = img.naturalWidth / img.naturalHeight;
+                        this.divPhotos[ind].stylePhoto.paddingTop = Math.ceil(document.getElementById('divPhoto' + (this.divPageNum-1) * this.divPhotoLimit).clientWidth / scale) + 20 + 'px';
+                    }else{
+                        this.divPhotos[ind].stylePhoto.paddingTop = '500px';
+                    }
+                }
+            }catch(e){
+                //
+            }
+        },
+        changePage(val){
+            this.divPageNum = val;
         }
     }
 });

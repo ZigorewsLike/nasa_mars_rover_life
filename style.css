@@ -68,9 +68,10 @@ div{
     position: relative;
     background-size: contain;
     background-repeat: no-repeat;
-    max-height: calc(width);
-    padding-top: 100%;
-    transition: 0.4s ease-in;  
+    max-height: 100%;
+    height: auto;
+    -padding-top: 100%;
+    transition: 0.2s ease-in;  
     cursor: pointer;  
 }
 .divPhotoLabl{
@@ -125,4 +126,23 @@ div.imgFullSize{
   height: 100%;
   cursor: pointer;
   -pointer-events: none;
+}
+.pageLine{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+.pageElem > p{
+    background-color: rgb(30, 28, 92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 1;
+    border: 1px black solid;
+    width: 65px;
+    height: 40px;
+    margin: 5px;
+    cursor: pointer;
 }
