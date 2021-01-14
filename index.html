@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1920, initial-scale=1.0">
+    <link rel="shortcut icon" href="source/favicon.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
@@ -162,7 +163,8 @@
                     <label for="limitPhotos">Choose a limit photos: </label>
                     <input style="width: 60px;" type="number" id="limitPhotos" name="limitPhotos" v-model="divPhotoLimit"/>
                 </div> -->
-            </div>  
+            </div> 
+            <div class="text-center">{{getStatus}}</div> 
             <div class="pageLine">
                 <div v-for="ind in Math.ceil(divPhotosLen/divPhotoLimit)" :key="ind" class="pageElem" v-on:click="changePage(ind)">
                     <p v-if="ind == divPageNum" style="color: gray;text-decoration: underline;">{{ind}}</p>
@@ -177,6 +179,19 @@
                 <div v-if="imgFullSize.fullSize" v-on:click="closeImg" class="imgFullCont">
                     <div id="imgFullDiv" class="imgFullSize">
                         <img id="imgFullImg" class="imgFullSize" :style="imgFullSize.style" :src="imgFullSize.path" alt="" srcset="" v-on:mousemove="imgFullSize.cursorLock = true" v-on:mouseleave="imgFullSize.cursorLock = false">
+                        <div class="panelTool imgFullSize" v-on:mousemove="imgFullSize.cursorLock = true" v-on:mouseleave="imgFullSize.cursorLock = false">
+                            <div class="buttonToolEmpt">{{imgFullSize.index+1}} photo of {{divPhotosLen}}</div>
+                            <div class="buttonTool" v-on:click="nextFullImg(-1)">
+                                <i class="material-icons">keyboard_arrow_left</i>
+                            </div>
+                            <div class="buttonTool" v-on:click="downloadFull()">
+                                <i class="material-icons">save_alt</i>
+                            </div>
+                            <div class="buttonTool" v-on:click="nextFullImg(1)">
+                                <i class="material-icons">keyboard_arrow_right</i>
+                            </div>
+                            <div class="buttonToolEmpt" style="width: 157px;"></div>
+                        </div>
                     </div>
                 </div>
             </center>
@@ -193,6 +208,13 @@
                 </div>
                 <h1 class="text-center" v-if="divPhotosLen == 0">No photos</h1>
                 <!-- <div class="col-md-5"><img width="100%" src="source/rovers/curiosity.jpg" alt="" srcset=""></div> -->
+            </div>
+        </div>
+
+        <div class="pageLine">
+            <div v-for="ind in Math.ceil(divPhotosLen/divPhotoLimit)" :key="ind" class="pageElem" v-on:click="changePage(ind)">
+                <p v-if="ind == divPageNum" style="color: gray;text-decoration: underline;">{{ind}}</p>
+                <p v-else>{{ind}}</p>
             </div>
         </div>
         

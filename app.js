@@ -4,6 +4,7 @@ new Vue({
         return{
             dubug: false,
             dateStep: 0,
+            getStatus: '',
             curentDateStr: new Date(Date.now()).toISOString().substring(0,10),
             curentDate: new Date(Date.now()),
             lockDate: new Date(Date.now()),
@@ -53,6 +54,7 @@ new Vue({
                 fullSize: false,
                 cursorLock: false,
                 path: '',
+                index: -1,
             }
         }
     },
@@ -93,7 +95,6 @@ new Vue({
                     }
                 }});
             }
-            console.log("DWIJJ : " + this.posX);
             if(this.posX == 0){
                 this.posX = clientWidth/3;
             }else if(this.posX == -1){
@@ -159,6 +160,7 @@ new Vue({
             this.roverImage.backgroundImage = 'url(source/rovers/' + name + '.jpg)'
         },
         getImages : async function(){
+            this.getStatus = 'please wait..';
             this.divPageNum = 1;
             let YOUR_KEY = "D6BXaCvYC9sAY8eatWjxLXApUhhNVdPq5yRcmOYm";
             await axios({
@@ -185,16 +187,18 @@ new Vue({
                     let vu = this;
                     img.src = img_src;
                     img.onload = function(){
-                        console.log(i);
                         vu.resizeMini(i);
                     };
                 }
+                this.getStatus = '';
               }).catch(function(error){
                 console.log('api error', error)
+                this.getStatus = 'Error!';
             });
         },
         openImage : async function(ind){
             this.imgFullSize.fullSize = true;
+            this.imgFullSize.index = ind;
             this.imgFullSize.style.top = 1 + 'px';
             var img = new Image();
             let vu = this;
@@ -230,7 +234,7 @@ new Vue({
             if(this.imgFullSize.fullSize){
                 let elem = document.getElementById("imgFullDiv");
                 let img_elem = document.getElementById("imgFullImg");
-                console.log(img_elem.clientWidth + ";" + elem.clientWidth);
+                //console.log(img_elem.clientWidth + ";" + elem.clientWidth);
                 if(img_elem.clientWidth > elem.clientWidth+50){
                      this.imgFullSize.style.width = '100%';
                      this.imgFullSize.style.height = 'auto';
@@ -263,6 +267,14 @@ new Vue({
         },
         changePage(val){
             this.divPageNum = val;
+        },
+        nextFullImg(step){
+            if (this.imgFullSize.index + step >= 0 && this.imgFullSize.index < this.divPhotosLen-step){
+                this.openImage(this.imgFullSize.index + step);
+            }
+        },
+        downloadFull(){
+            window.open(this.imgFullSize.path, '_blank');
         }
     }
 });
