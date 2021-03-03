@@ -44,6 +44,9 @@
                 <div class="col-md-5 offset-md-2"><div class="roverImg roverChDiv" :style="roverImage"></div></div>
                 <div class="col-md-3 roverChDiv">
                     <div class="roverChLabel">
+                        <div v-on:mousemove="viewRover('perseverance')" v-on:click="chooseRover('perseverance')"><h3 class="text-center">
+                            Perseverance <i v-if="roverName=='perseverance'" class="material-icons">done_outline</i>
+                        </h3></div>
                         <div v-on:mousemove="viewRover('curiosity')" v-on:click="chooseRover('curiosity')"><h3 class="text-center">
                             Curiosity <i v-if="roverName=='curiosity'" class="material-icons">done_outline</i>
                         </h3></div>
@@ -123,6 +126,28 @@
                             </table>
                         </div> 
                     </transition>
+                    <transition name="slide-fade">
+                        <div v-show="roverName=='perseverance'">
+                            <p>Mars 2020 is a Mars rover mission forming part of NASA's Mars Exploration Program that includes the rover Perseverance and the small robotic helicopter Ingenuity. Mars 2020 was launched from Earth on an Atlas V launch vehicle at 11:50:00 UTC on 30 July 2020, and confirmation of touch down in Jezero crater on Mars was received at 20:55 UTC on 18 February 2021. As of 3 March 2021.</p>
+                            <table class="table table-dark">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Launch date</th>
+                                        <td>30 July 2020, 11:50:00 UTC</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Landing date</th>
+                                        <td>18 February 2021, 20:55 UTC</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Last contact</th>
+                                        <td>Today ({{new Date(Date.now()).toISOString().substring(0,10)}})</td>
+                                    </tr> 
+                                </tbody>
+                            </table>
+                        </div> 
+                    </transition>
+                    
                 </div>
             </div>
             <h2 class="text-center marginStep">Select date</h2>
